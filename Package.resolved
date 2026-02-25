@@ -1,5 +1,5 @@
 {
-  "originHash" : "e6faa73ba328246f2afd635fcd9af2e03cf141d6dedfec1ce365937fb564162f",
+  "originHash" : "a4e0418c9faaa1374059f9bbf2b98c3a7f3a403ceebd79a3cf0e16d3e724cd5f",
   "pins" : [
     {
       "identity" : "aexml",
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/eu-digital-identity-wallet/eudi-lib-ios-rqes-csc-swift.git",
       "state" : {
-        "revision" : "5625c8327f46b26b3463add0b6a4d2a8908c1b1f",
-        "version" : "0.7.1"
+        "revision" : "fd4e7ddd91fbe397392914ddb4106fc840557a80",
+        "version" : "0.8.0"
       }
     },
     {
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/eu-digital-identity-wallet/eudi-lib-ios-rqes-kit.git",
       "state" : {
-        "revision" : "d08df403631ef385b00d01b250c069a3497d7a81",
-        "version" : "0.7.0"
+        "revision" : "647c9208de4518860d48cdff1a994368a2c6d894",
+        "version" : "0.8.0"
       }
     },
     {
@@ -53,6 +53,15 @@
       "state" : {
         "revision" : "9006d2888025fbe893c3c396327b2fe45a8c177b",
         "version" : "6.1.0"
+      }
+    },
+    {
+      "identity" : "joseswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/airsidemobile/JOSESwift.git",
+      "state" : {
+        "revision" : "c2664a902e75c0426a1d43132bd4babc6fd173d3",
+        "version" : "3.0.0"
       }
     },
     {
@@ -152,6 +161,15 @@
       "state" : {
         "revision" : "d535b0836be52c846d87605adad1205445e4dc35",
         "version" : "0.0.4"
+      }
+    },
+    {
+      "identity" : "swiftyjson",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftyJSON/SwiftyJSON.git",
+      "state" : {
+        "revision" : "af76cf3ef710b6ca5f8c05f3a31307d44a3c5828",
+        "version" : "5.0.2"
       }
     },
     {
