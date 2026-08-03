@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Brightify/Cuckoo.git",
       "state" : {
-        "revision" : "8db209b9a5ba58ac6be7d542b07bb72b49baa587",
-        "version" : "2.3.0"
+        "revision" : "7cef6391ef36c684759f38a91968bbf97e12e02b",
+        "version" : "2.4.0"
       }
     },
     {
@@ -195,8 +195,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tuist/XcodeProj",
       "state" : {
-        "revision" : "77ee0721798186f71b7ee8f7e29be8495d28360f",
-        "version" : "9.9.0"
+        "revision" : "3259a01e7193d55174c2f370d72e3ff4c277d8fd",
+        "version" : "9.15.0"
       }
     }
   ],
