@@ -1,7 +1,7 @@
 # EUDI Remote Qualified Electronic Signature (RQES) UI library for iOS
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Swift](https://img.shields.io/badge/Swift-6.0-F05138.svg?logo=swift)](https://swift.org)
+[![Swift](https://img.shields.io/badge/Swift-6.2-F05138.svg?logo=swift)](https://swift.org)
 [![SwiftUI](https://img.shields.io/badge/SwiftUI-enabled-007AFF.svg?logo=swift)](https://developer.apple.com/xcode/swiftui/)
 [![iOS](https://img.shields.io/badge/iOS-17%2B-000000.svg?logo=apple)](https://developer.apple.com/ios/)
 [![SonarCloud](https://img.shields.io/badge/SonarCloud-enabled-F3702A.svg?logo=sonarcloud)](https://sonarcloud.io)
