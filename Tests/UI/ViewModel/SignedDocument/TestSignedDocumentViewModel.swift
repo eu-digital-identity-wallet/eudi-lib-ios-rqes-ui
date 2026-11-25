@@ -40,7 +40,7 @@ final class TestSignedDocumentViewModel: XCTestCase {
     self.viewModel = nil
   }
 
-  func testViewDocument_ThenNavigatesToViewDocumentWith() async {
+  func testViewDocument_WhenCalled_ThenNavigatesToViewDocumentWithSignedFlag() async {
     // Given
     stub(router) { mock in
       when(mock.navigateTo(any())).thenDoNothing()
@@ -180,7 +180,7 @@ final class TestSignedDocumentViewModel: XCTestCase {
     XCTAssertTrue(state.isInitialized)
   }
 
-  func testErrorAction_WhenInvoked_RetriesAndRecoversState() async {
+  func testErrorAction_WhenInvoked_ThenRetriesAndRecoversState() async {
     // Given
     let expectedDocument = Document(
       id: "id",
@@ -253,8 +253,10 @@ final class TestSignedDocumentViewModel: XCTestCase {
     )
   }
 
-  func testInitiate_WhenSessionLacksQtspName_ActionTriggersOnCancel() async {
-    // Given - initialize EudiRQESUi so onCancel's requireInstance() doesn't fatalError
+  /// Initializes EudiRQESUi so that onCancel's requireInstance() does not fatalError. The retry action fires
+  /// self.onCancel(), and the test waits for the cancel Task to reset the EudiRQESUi state.
+  func testInitiate_WhenSessionLacksQtspName_ThenActionTriggersOnCancel() async {
+    // Given
     let bootConfig = MockEudiRQESUiConfig()
     stub(bootConfig) { mock in
       when(mock.theme.get).thenReturn(AppTheme())
@@ -284,10 +286,10 @@ final class TestSignedDocumentViewModel: XCTestCase {
       return
     }
 
-    // When - invoke the retry action which fires self.onCancel()
+    // When
     action()
 
-    // Then - wait for the cancel Task to reset EudiRQESUi state
+    // Then
     let end = Date().addingTimeInterval(2.0)
     while Date() < end {
       let state = await eudiRQESUi.getState()

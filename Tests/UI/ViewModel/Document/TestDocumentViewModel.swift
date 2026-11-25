@@ -101,8 +101,9 @@ final class TestDocumentViewModel: XCTestCase {
     verify(router).pop()
   }
 
+  /// Writes a minimal valid PDF to a temp URL.
   func testInitiate_WhenURLPointsToValidPDF_ThenStateContainsPDFDocument() async throws {
-    // Given - write a minimal valid PDF to a temp URL
+    // Given
     let pdf = PDFDocument()
     pdf.insert(PDFPage(), at: 0)
     let pdfData = try XCTUnwrap(pdf.dataRepresentation())
@@ -130,8 +131,10 @@ final class TestDocumentViewModel: XCTestCase {
     XCTAssertEqual(state.documentSource, .pdfUrl(tempURL))
   }
 
-  func testErrorAction_WhenInvoked_RetriesInitiateAndRecoversState() async throws {
-    // Given - write a minimal valid PDF so the retry can succeed
+  /// Stubs getSession() to return no document, then a valid PDF: the first initiate() ends in the error state,
+  /// and the retry action re-runs initiate() and clears it.
+  func testErrorAction_WhenInvoked_ThenRetriesInitiateAndRecoversState() async throws {
+    // Given
     let pdf = PDFDocument()
     pdf.insert(PDFPage(), at: 0)
     let pdfData = try XCTUnwrap(pdf.dataRepresentation())
@@ -144,12 +147,11 @@ final class TestDocumentViewModel: XCTestCase {
       document: DocumentData(documentName: tempURL.lastPathComponent, uri: tempURL)
     )
 
-    // First call -> no document (error state); retry -> valid PDF (recovers)
     stub(interactor) { stub in
       when(stub.getSession()).thenReturn(SessionData(), validSession)
     }
 
-    // When - initiate fails into the error state
+    // When
     await viewModel.initiate()
 
     guard let retryAction = viewModel.viewState.error?.action else {
@@ -157,7 +159,6 @@ final class TestDocumentViewModel: XCTestCase {
       return
     }
 
-    // When - the retry action re-runs initiate and clears the error
     retryAction()
     await waitUntil { self.viewModel.viewState.error == nil }
 

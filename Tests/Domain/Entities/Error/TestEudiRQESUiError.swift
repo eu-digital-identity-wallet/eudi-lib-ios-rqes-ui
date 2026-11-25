@@ -18,7 +18,8 @@ import XCTest
 
 final class TestEudiRQESUiError: XCTestCase {
 
-  func testErrorDescription_AllCases_ReturnsExpectedMessage() {
+  func testErrorDescription_WhenCheckingEveryCase_ThenReturnsTheExpectedMessage() {
+    // Given
     let cases: [(EudiRQESUiError, String)] = [
       (.notInitialized, "You need to initialize the EudiRQESUi SDK first with an EudiRQESUiConfig Impl"),
       (.invalidState("someState"), "State is Invalid - someState"),
@@ -29,6 +30,7 @@ final class TestEudiRQESUiError: XCTestCase {
       (.noDocumentProvided, "noDocumentProvided")
     ]
 
+    // Then
     for (error, expected) in cases {
       XCTAssertEqual(error.errorDescription, expected, "Mismatch for \(error)")
     }

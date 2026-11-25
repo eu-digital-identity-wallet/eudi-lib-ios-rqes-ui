@@ -44,9 +44,11 @@ final class TestLocalizationController: XCTestCase {
         ["en_US": [.genericErrorMessage: customGenericErrorTranslation]]
       )
     }
-    
+
+    // When
     let result = self.controller.get(with: .genericErrorMessage)
-    
+
+    // Then
     XCTAssertEqual(result, customGenericErrorTranslation)
   }
   
@@ -58,9 +60,11 @@ final class TestLocalizationController: XCTestCase {
         ["en_US": [.genericErrorMessage: customGenericErrorTranslation]]
       )
     }
-    
+
+    // When
     let result: LocalizedStringKey = self.controller.get(with: .genericErrorMessage, args: [])
-    
+
+    // Then
     XCTAssertEqual(result, customGenericErrorTranslation.toLocalizedStringKey)
   }
   
@@ -69,9 +73,11 @@ final class TestLocalizationController: XCTestCase {
     stub(config) { mock in
       when(mock.translations.get).thenReturn([:])
     }
-    
+
+    // When
     let result = self.controller.get(with: .genericErrorMessage)
-    
+
+    // Then
     XCTAssertEqual(result, LocalizableKey.genericErrorMessage.defaultTranslation(args: []))
   }
   
@@ -81,13 +87,15 @@ final class TestLocalizationController: XCTestCase {
       when(mock.translations.get).thenReturn([:])
     }
 
+    // When
     let result: String = self.controller.get(with: .signedBy, args: ["NISCY"])
 
+    // Then
     XCTAssertEqual(result, LocalizableKey.signedBy.defaultTranslation(args: ["NISCY"]))
   }
 
   @MainActor
-  func testEnvironmentValuesLocalizationController_Setter_StoresValue() {
+  func testEnvironmentValuesLocalizationController_WhenSettingAValue_ThenStoresTheValue() {
     // Given
     var env = EnvironmentValues()
     let preview = PreviewLocalizationController()
@@ -99,9 +107,10 @@ final class TestLocalizationController: XCTestCase {
     XCTAssertTrue(env.localizationController is PreviewLocalizationController)
   }
 
+  /// Initializes the SDK so that DIGraph is loaded and _config is set.
   @MainActor
-  func testEnvironmentValuesLocalizationController_DefaultValue_ResolvesFromDIGraph() async {
-    // Given - initialize the SDK so DIGraph is loaded and _config is set
+  func testEnvironmentValuesLocalizationController_WhenReadingTheDefaultValue_ThenResolvesFromTheDIGraph() async {
+    // Given
     let bootConfig = MockEudiRQESUiConfig()
     stub(bootConfig) { mock in
       when(mock.theme.get).thenReturn(AppTheme())
@@ -116,7 +125,7 @@ final class TestLocalizationController: XCTestCase {
   }
 
   @MainActor
-  func testEnvironmentValuesLocalizationController_DefaultValue_WhenPreviewEnvSet_ReturnsPreview() throws {
+  func testEnvironmentValuesLocalizationController_WhenPreviewEnvIsSet_ThenReturnsPreview() throws {
     // Given
     setenv("XCODE_RUNNING_FOR_PREVIEWS", "1", 1)
     defer { unsetenv("XCODE_RUNNING_FOR_PREVIEWS") }
@@ -133,21 +142,36 @@ final class TestLocalizationController: XCTestCase {
     XCTAssertTrue(resolved is PreviewLocalizationController)
   }
 
-  func testPreviewLocalizationController_GetWithKey_ReturnsDefaultString() {
+  func testPreviewLocalizationController_WhenGettingAKey_ThenReturnsTheDefaultString() {
+    // Given
     let preview = PreviewLocalizationController()
+
+    // When
     let result = preview.get(with: .signDocument)
+
+    // Then
     XCTAssertEqual(result, LocalizableKey.signDocument.defaultTranslation(args: []))
   }
 
-  func testPreviewLocalizationController_GetWithKeyAndArgs_ReturnsFormattedDefaultString() {
+  func testPreviewLocalizationController_WhenGettingAKeyWithArgs_ThenReturnsTheFormattedDefaultString() {
+    // Given
     let preview = PreviewLocalizationController()
+
+    // When
     let result: String = preview.get(with: .signedBy, args: ["NISCY"])
+
+    // Then
     XCTAssertEqual(result, LocalizableKey.signedBy.defaultTranslation(args: ["NISCY"]))
   }
 
-  func testPreviewLocalizationController_GetWithKeyAndArgs_ReturnsLocalizedStringKeyPlaceholder() {
+  func testPreviewLocalizationController_WhenGettingALocalizedStringKeyWithArgs_ThenReturnsThePlaceholder() {
+    // Given
     let preview = PreviewLocalizationController()
+
+    // When
     let result: LocalizedStringKey = preview.get(with: .signDocument, args: [])
+
+    // Then
     XCTAssertEqual(result, LocalizedStringKey("Mocked Translation"))
   }
 }

@@ -186,7 +186,7 @@ final class TestDocumentSelectionViewModel: XCTestCase {
     verify(router).navigateTo(equal(to: .credentialSelection))
   }
 
-  func testErrorAction_WhenInvoked_RetriesAndRecoversState() async {
+  func testErrorAction_WhenInvoked_ThenRetriesAndRecoversState() async {
     // Given
     let expectedQTSPName = "Wallet-Centric"
     let sessionWithNilDoc: SessionData = .init()
@@ -264,7 +264,7 @@ final class TestDocumentSelectionViewModel: XCTestCase {
     XCTAssertEqual(state.error, expectedError)
   }
 
-  func testViewDocument_whenRouterNavigateToViewDocument_ThenNavigateToWasCalled() async {
+  func testViewDocument_WhenCalled_ThenNavigatesToViewDocument() async {
     // Given
     stub(router) { mock in
       when(mock.navigateTo(any())).thenDoNothing()
@@ -277,7 +277,7 @@ final class TestDocumentSelectionViewModel: XCTestCase {
     verify(router).navigateTo(equal(to: .viewDocument(false)))
   }
 
-  func testSelectService_whenRouterNavigateToViewDocument_ThenNavigateToWasCalled() async {
+  func testSelectService_WhenCalled_ThenNavigatesToServiceSelection() async {
     // Given
     stub(router) { mock in
       when(mock.navigateTo(any())).thenDoNothing()
@@ -290,7 +290,7 @@ final class TestDocumentSelectionViewModel: XCTestCase {
     verify(router).navigateTo(equal(to: .serviceSelection))
   }
 
-  func testSelectCertificate_whenRouterNavigateToViewDocument_ThenNavigateToWasCalled() async {
+  func testSelectCertificate_WhenCalled_ThenNavigatesToCredentialSelection() async {
     // Given
     stub(router) { mock in
       when(mock.navigateTo(any())).thenDoNothing()

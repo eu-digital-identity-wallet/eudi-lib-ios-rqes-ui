@@ -114,42 +114,48 @@ final class TestEudiRQESUi: XCTestCase {
 
   }
 
-  func testCalculateNextState_FromNone_ReturnsInitial() async throws {
+  func testCalculateNextState_WhenStartingFromNone_ThenReturnsInitial() async throws {
+    // Then
     try await runResumeTransition(
       startingFrom: .none,
       expectedNext: .initial(self.config)
     )
   }
 
-  func testCalculateNextState_FromInitial_ReturnsCredentials() async throws {
+  func testCalculateNextState_WhenStartingFromInitial_ThenReturnsCredentials() async throws {
+    // Then
     try await runResumeTransition(
       startingFrom: .initial(self.config),
       expectedNext: .credentials
     )
   }
 
-  func testCalculateNextState_FromCredentials_ReturnsSign() async throws {
+  func testCalculateNextState_WhenStartingFromCredentials_ThenReturnsSign() async throws {
+    // Then
     try await runResumeTransition(
       startingFrom: .credentials,
       expectedNext: .sign
     )
   }
 
-  func testCalculateNextState_FromSign_ReturnsView() async throws {
+  func testCalculateNextState_WhenStartingFromSign_ThenReturnsView() async throws {
+    // Then
     try await runResumeTransition(
       startingFrom: .sign,
       expectedNext: .view
     )
   }
 
-  func testCalculateNextState_FromView_ReturnsView() async throws {
+  func testCalculateNextState_WhenStartingFromView_ThenReturnsView() async throws {
+    // Then
     try await runResumeTransition(
       startingFrom: .view,
       expectedNext: .view
     )
   }
 
-  func testStateEquality_AllCases_UsesIdComparison() {
+  func testStateEquality_WhenComparingAllCases_ThenUsesIdComparison() {
+    // Then
     XCTAssertEqual(EudiRQESUi.State.none, .none)
     XCTAssertEqual(EudiRQESUi.State.initial(config), .initial(config))
     XCTAssertEqual(EudiRQESUi.State.rssps, .rssps)
@@ -159,7 +165,7 @@ final class TestEudiRQESUi: XCTestCase {
     XCTAssertNotEqual(EudiRQESUi.State.none, .initial(config))
   }
 
-  func testCancel_WhenInvoked_ResetsStateAndSessionAndServices() async {
+  func testCancel_WhenInvoked_ThenResetsStateAndSessionAndServices() async {
 
     // Given
     self.eudiRQESUi = await .init(
@@ -191,25 +197,35 @@ final class TestEudiRQESUi: XCTestCase {
     XCTAssertNil(authService)
   }
 
-  func testRequireConfig_AfterInit_ReturnsConfig() {
+  func testRequireConfig_WhenInitialized_ThenReturnsConfig() {
+    // When
     let returnedConfig = EudiRQESUi.requireConfig()
+
+    // Then
     XCTAssertTrue((returnedConfig as AnyObject) === (self.config as AnyObject))
   }
 
-  func testRequireTheme_AfterInit_ReturnsTheme() {
+  func testRequireTheme_WhenInitialized_ThenReturnsTheme() {
+    // When
     let theme = EudiRQESUi.requireTheme()
+
+    // Then
     XCTAssertTrue(theme is AppTheme)
   }
 
-  func testInstance_AfterInit_ReturnsSameInstance() throws {
+  func testInstance_WhenInitialized_ThenReturnsSameInstance() throws {
+    // When
     let returned = try EudiRQESUi.instance()
+
+    // Then
     XCTAssertTrue(returned === self.eudiRQESUi)
   }
 
+  /// Uses the public init that wires DIGraph and RouterGraphImpl.
   @MainActor
-  func testInit_PublicInit_SetsSharedInstance() async throws {
+  func testInit_WhenUsingThePublicInit_ThenSetsTheSharedInstance() async throws {
 
-    // When - use the public init that wires DIGraph + RouterGraphImpl
+    // When
     let newInstance = EudiRQESUi(config: config)
 
     // Then
@@ -217,7 +233,8 @@ final class TestEudiRQESUi: XCTestCase {
     XCTAssertTrue(returned === newInstance)
   }
 
-  func testOnCancel_OnViewModel_TriggersEudiRQESUiCancel() async {
+  /// Waits for the unstructured Task of the cancel to complete.
+  func testOnCancel_WhenCalledOnViewModel_ThenTriggersEudiRQESUiCancel() async {
 
     // Given
     self.eudiRQESUi = await .init(
@@ -235,7 +252,7 @@ final class TestEudiRQESUi: XCTestCase {
     // When
     await viewModel.onCancel()
 
-    // Then - wait for the unstructured Task to complete
+    // Then
     let end = Date().addingTimeInterval(2.0)
     while Date() < end {
       let document = await eudiRQESUi.getSessionData().document
