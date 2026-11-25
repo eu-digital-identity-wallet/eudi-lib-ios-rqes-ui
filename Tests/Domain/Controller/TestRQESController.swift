@@ -49,39 +49,46 @@ final class TestRQESController: XCTestCase {
   }
 
   func testGetServiceAuthorizationUrl_WhenNoRQESService_ThenThrowsNoRQESServiceProvided() async {
+    // Then
     await assertThrowsNoService {
       _ = try await self.controller.getServiceAuthorizationUrl()
     }
   }
 
   func testAuthorizeService_WhenNoRQESService_ThenThrowsNoRQESServiceProvided() async {
+    // Then
     await assertThrowsNoService {
       _ = try await self.controller.authorizeService("authCode")
     }
   }
 
   func testAuthorizeCredential_WhenNoAuthorizedService_ThenThrowsNoRQESServiceProvided() async {
+    // Then
     await assertThrowsNoService {
       _ = try await self.controller.authorizeCredential("authCode")
     }
   }
 
   func testSignDocuments_WhenNoAuthorizedService_ThenThrowsNoRQESServiceProvided() async {
+    // Then
     await assertThrowsNoService {
       _ = try await self.controller.signDocuments("authCode")
     }
   }
 
   func testGetCredentialsList_WhenNoAuthorizedService_ThenThrowsNoRQESServiceProvided() async {
+    // Then
     await assertThrowsNoService {
       _ = try await self.controller.getCredentialsList()
     }
   }
 
   func testGetCredentialAuthorizationUrl_WhenNoAuthorizedService_ThenThrowsNoRQESServiceProvided() async throws {
+    // Given
     let credentialInfo = try await TestConstants.getCredentialInfo()
     let document = Document(id: "id", fileURL: try XCTUnwrap(URL(string: "file://internal/test.pdf")))
 
+    // Then
     await assertThrowsNoService {
       _ = try await self.controller.getCredentialAuthorizationUrl(
         credentialInfo: credentialInfo,

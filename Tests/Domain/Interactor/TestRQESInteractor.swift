@@ -108,6 +108,7 @@ final class TestRQESInteractor: XCTestCase {
   func testGetSession_WhenSessionIsCached_ThenReturnSession() async {
     // When
     let session = await interactor.getSession()
+
     // Then
     XCTAssertNotNil(session)
   }
@@ -122,6 +123,7 @@ final class TestRQESInteractor: XCTestCase {
     
     // When
     let qtsps = await interactor.getQTSps()
+
     // Then
     XCTAssertTrue(!qtsps.isEmpty)
   }

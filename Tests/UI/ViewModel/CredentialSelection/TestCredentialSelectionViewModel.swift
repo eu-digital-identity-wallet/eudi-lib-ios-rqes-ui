@@ -41,7 +41,7 @@ final class TestCredentialSelectionViewModel: XCTestCase {
     self.viewModel = nil
   }
 
-  func testInitiate_successfulCredentialsFetch_updatesState() async throws {
+  func testInitiate_WhenCredentialsFetchSucceeds_ThenUpdatesState() async throws {
     // Given
     let expectedCredentialInfo = try await TestConstants.getCredentialInfo()
     let expectedCredentials = [expectedCredentialInfo]
@@ -189,8 +189,9 @@ final class TestCredentialSelectionViewModel: XCTestCase {
     XCTAssertNil(lastState.error)
   }
 
-  func testNextStep_WhenURLNotOpenable_SetsUnableToOpenBrowserAndCancelActionClearsError() async {
-    // Given - initialize EudiRQESUi for onPause's requireInstance
+  /// Initializes EudiRQESUi for onPause's requireInstance.
+  func testNextStep_WhenURLNotOpenable_ThenSetsUnableToOpenBrowserAndCancelActionClearsError() async {
+    // Given
     let bootConfig = MockEudiRQESUiConfig()
     stub(bootConfig) { mock in
       when(mock.theme.get).thenReturn(AppTheme())
@@ -220,7 +221,7 @@ final class TestCredentialSelectionViewModel: XCTestCase {
     XCTAssertNil(viewModel.viewState.error)
   }
 
-  func testErrorAction_WhenInvoked_RetriesAndRecoversState() async throws {
+  func testErrorAction_WhenInvoked_ThenRetriesAndRecoversState() async throws {
     // Given
     let expectedCredentialInfo = try await TestConstants.getCredentialInfo()
     let expectedCredentials = [expectedCredentialInfo]
